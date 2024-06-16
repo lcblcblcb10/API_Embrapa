@@ -43,7 +43,7 @@ Cenário e Arquitetura Proposta
     Segurança dos Dados: Garantia da segurança dos dados de entrada e saída da API.
 """
 
-# MVP do deploy
+# MVP do deploy: link do Github https://github.com/lcblcblcb10/API_Embrapa
 
 from flask import Flask, jsonify
 from flasgger import Swagger
@@ -73,8 +73,11 @@ def consultar_dados_por_ano(ano):
 
             # Para cada combinação de x e y, consulta os dados
             for y in y_range:
-                # Monta a URL com o ano atual, o valor de x e o valor de y
-                url = f"http://vitibrasil.cnpuv.embrapa.br/index.php?ano={ano}&opcao=opt_0{x}&subopcao=subopt_0{y}"
+                # Monta a URL com base nas condições de x e y
+                if x == 2 or x == 4:
+                    url = f"http://vitibrasil.cnpuv.embrapa.br/index.php?ano={ano}&opcao=opt_0{x}"
+                elif x == 3 or x == 5 or x == 6:
+                    url = f"http://vitibrasil.cnpuv.embrapa.br/index.php?ano={ano}&opcao=opt_0{x}&subopcao=subopt_0{y}"
 
                 # Consulta ao site
                 response = requests.get(url)
